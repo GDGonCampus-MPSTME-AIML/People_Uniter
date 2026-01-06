@@ -93,7 +93,7 @@ class SequentialRecEnv(gym.Env):
 
         # click and join probabilities (click higher than join)
         click_prob = 0.5 * (base_prob * self.click_prob_scale + 0.1)  # ensure not zero
-        join_prob = 0.3 * (base_prob * self.join_prob_scale + 0.05)
+        join_prob = 0.2 * (base_prob * self.join_prob_scale + 0.05)
 
         # stochastic outcome
         rand = self.rng.random()
@@ -101,7 +101,7 @@ class SequentialRecEnv(gym.Env):
         info = {"sim": float(sim), "click_prob": float(click_prob), "join_prob": float(join_prob)}
 
         if rand < join_prob:
-            reward = 1.0  # user joins
+            reward = 2.0  # user joins
             # update user embedding slightly toward the item to simulate preference change
             self.current_user_embed = (
                 0.9 * self.current_user_embed + 0.1 * item_embed + self.rng.normal(scale=0.01, size=self.embed_dim)
